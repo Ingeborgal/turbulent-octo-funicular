@@ -1,56 +1,92 @@
 import static org.junit.Assert.*;
 
+import javax.rmi.CORBA.Util;
+
 import org.junit.Test;
 
 
 public class UtilityTest {
-	
-	@Test
-	public void checkLengthOfString(){
-		
-	}
+
+	Utility utility = new Utility();
 
 	@Test
-	public void convertFromBinaryToDecimal_assertEquals(){ 
-		assertEquals(6, Utility.convertFromBinaryToDecimal("110"));
+	public void convertFromBinaryToDecimal_convertsABinaryStringToDecimals_assertEquals(){ 
+		assertEquals(6, utility.convertFromBinaryToDecimal("110"));
 	}
 	@Test (expected = IllegalArgumentException.class)
-	public void convertFromBinaryToDecimal_exceedsMaximumLengthForBit_assertEquals(){
-		assertEquals(47499036, Utility.convertFromBinaryToDecimal("10110101001100011100011100"));
+	public void convertFromBinaryToDecimal_exceedsMaximumLengthForBit_throwsIllegalArgumentException(){
+		utility.convertFromBinaryToDecimal("10110101001100011100011100");
 	}
 	@Test (expected = IllegalArgumentException.class)
-	public void checkForIllegalArguments_castsException(){
-		Utility.convertFromBinaryToDecimal("65");
+	public void convertFromBinaryToDecimal_illegalDigits_throwsIllegalArgumentExceptionException(){
+		utility.convertFromBinaryToDecimal("65");
 	}
 	@Test
-	public void isEmpty_BitString_Returns0_assertEquals(){
-		Utility.convertFromBinaryToDecimal("");
+	public void convertFromBinaryToDecimal_isEmpty_shouldReturn0_assertEquals(){
+		assertEquals(0, utility.convertFromBinaryToDecimal(""));
 	}
 	@Test
-	public void convertFromDecimalToBinary(){
-		assertEquals("000000000000000000101101", Utility.convertFromDecimalToBinary(45));
+	public void convertFromDecimalToBinary_ConvertsDecimalsToABinaryString_assertEquals(){
+		assertEquals("000000000000000000101101", utility.convertFromDecimalToBinary(45));
 	}
 	@Test
-	public void convertFromHexToDecimal(){
-		assertEquals(255, Utility.convertFromHexToDecimal("FF"));
+	public void convertFromHexToDecimal_convertsAHedecimalStringToDecimals_assertEquals(){
+		assertEquals(255, utility.convertFromHexToDecimal("FF"));
 	}
 	@Test (expected = IllegalArgumentException.class)
 	public void convertFromHexToDecimal_exceedsMaximumLengthForHex_throwsIllegalArgumentException(){
-		Utility.convertFromHexToDecimal("123456789");
+		utility.convertFromHexToDecimal("123456789");
 	}
 	@Test (expected = IllegalArgumentException.class)
-	public void convertFromHexToDecimal_IllegalDigits_throwsIllegalArgumentException(){
-		Utility.convertFromHexToDecimal("ndf788");
+	public void convertFromHexToDecimal_illegalDigits_throwsIllegalArgumentException(){
+		utility.convertFromHexToDecimal("ndf788");
 	}
 	@Test
-	public void convertFromHexToDecimal_emptyString_throwsIllegalArgumentException(){
-		assertEquals(0, Utility.convertFromHexToDecimal(""));
+	public void convertFromHexToDecimal_emptyString_shouldReturn0(){
+		assertEquals(0, utility.convertFromHexToDecimal(""));
 	}
-	
-//	@Test
-//	public void bitwiseAndOperation(){
-//		
-//	}
+	@Test
+	public void convertFromDecimalToHex_convertsDecimalsToHex_assertEquals(){
+		assertEquals("000017", utility.convertFromDecimalToHex(23));
+	}
 
+	@Test
+	public void bitwiseAndOperation_ifTheFirstNumberInBothStringsIs1_assertEquals(){
+		String bitwiseString1 = "111111111111111111111111";
+		String bitwiseString2 = "111111111111111111111111";
+		assertEquals("111111111111111111111111", utility.bitwiseAndOperation(bitwiseString1, bitwiseString2));
+	}
+	@Test
+	public void bitwiseAndOperation_ifTheFirstNumberInBothStringsIs0_assertEquals(){
+		String bitwiseString1 = "000000000000000000000000";
+		String bitwiseString2 = "000000000000000000000000";
+		assertEquals("000000000000000000000000", utility.bitwiseAndOperation(bitwiseString1, bitwiseString2));
+	}
+	@Test
+	public void bitwiseAndOperation_ifTheFirstNumberInTheFirstStringIs1AndTheSecondIs0_assertEquals(){
+		String bitwiseString1 = "111111111111111111111111";
+		String bitwiseString2 = "000000000000000000000000";
+		assertEquals("000000000000000000000000", utility.bitwiseAndOperation(bitwiseString1, bitwiseString2) );
+	}
+
+	
+	@Test
+	public void bitwiseOrOperation_ifTheFirstNumberInBothStringsIs1_assertEquals(){
+		String bitwiseString1 = "111111111111111111111111";
+		String bitwiseString2 = "111111111111111111111111";
+		assertEquals("111111111111111111111111", utility.bitwiseOrOperation(bitwiseString1, bitwiseString2));
+	}
+	@Test
+	public void bitwiseOrOperation_ifTheFirstNumberInBothStringsIs0_assertEquals(){
+		String bitwiseString1 = "000000000000000000000000";
+		String bitwiseString2 = "000000000000000000000000";
+		assertEquals("000000000000000000000000", utility.bitwiseOrOperation(bitwiseString1, bitwiseString2));
+	}
+	@Test
+	public void bitwiseOrOperation_ifTheFirstNumberInTheFirstStringIs1AndTheSecondIs0_assertEquals(){
+		String bitwiseString1 = "111111111111111111111111";
+		String bitwiseString2 = "000000000000000000000000";
+		assertEquals("111111111111111111111111", utility.bitwiseOrOperation(bitwiseString1, bitwiseString2));
+	}
 
 }
