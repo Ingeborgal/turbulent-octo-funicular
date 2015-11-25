@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.mockito.Mockito.*;
 //Krav, datainnsamlingsklassen:
 
-//Vi skal kunne finne ut om det er mer data å lese
+
 //Når ei linje med måledata leses, skal følgende skje:
 // Måledata id skal brukes som nøkkel for lagring og gjenfinning av bearbeidede måledata i en passende Java collection klasse
 // Feil antall argumenter skal kaste en exception
@@ -19,7 +19,6 @@ public class DataCollectorTest {
 	private OpenAndReadFile fileHandler;
 	
 	
-	
 	@Before
 	public void setUp() {
 		fileHandler = mock(OpenAndReadFile.class);
@@ -29,16 +28,19 @@ public class DataCollectorTest {
 	public void open_openAndReadFile_assertTrue(){
 		when(fileHandler.openFile("file.txt")).thenReturn(true);
 		assertTrue(dataCollector.open("file.txt"));
+		verify(fileHandler, times(1)).openFile("file.txt");
 	}
 	@Test
-	public void read_readFromFile_assertEquals(){
+	public void read_readNexLineFromFile_assertEquals(){
 		when(fileHandler.nextLine()).thenReturn("a6c4 1 100010000010000100000001 100010000010000100000001");
 		assertEquals("a6c4 1 100010000010000100000001 100010000010000100000001", dataCollector.read());
+		verify(fileHandler, times(1)).nextLine();
 	}
 	@Test
 	public void readMoreFromFile(){
-		when(fileHandler.readMore()).thenReturn("a6c4 1 100010000010000100000001 100010000010000100000001");
-		assertEquals("a6c4 1 100010000010000100000001 100010000010000100000001", dataCollector.readMore);
+		when(fileHandler.readMore()).thenReturn(true);
+		assertTrue(dataCollector.readMore("file.txt"));
+		verify(fileHandler, times(1)).readMore();
 	}
 	
 

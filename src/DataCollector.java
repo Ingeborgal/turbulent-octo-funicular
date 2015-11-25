@@ -15,4 +15,8 @@ public class DataCollector {
 		return openAndReadFile.nextLine();
 	}
 
+	public boolean readMore(String string) {
+		return openAndReadFile.readMore();
+	}
+
 }
