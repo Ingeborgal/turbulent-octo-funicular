@@ -85,8 +85,18 @@ public class DataCollectorTest {
 		dataCollector.saveData("b86d4a 2 " + string1 + " " + string2);
 		assertEquals("100100101000010010010001", dataCollector.getSavedData("b86d4a").getBitResult());
 	}
+	@Test(expected = IllegalArgumentException.class)
+	public void getErrorLog_wrongOperator_assertEquals(){
+		String string1 = "100010000010000100000001";
+		String string2 = "100010010010000101001001";
+		dataCollector.saveData("b86d4a 4 " + string1 + " " + string2);
+	}
 	@Test
-	public void saveErrorLog(){
-		
+	public void saveData_duplicateHexaKeys_assertEquals(){
+		String string1 = "b86d4a 1 100010000010000100000001 100010000010000100000001";
+		String string2 = "b86d4a 1 100010000010000100000001 100010000010000100000001";
+		dataCollector.saveData(string1);
+		dataCollector.saveData(string2);
+		assertEquals(8422417, dataCollector.getDuplicates().get(0).getIntResult());
 	}
 }
