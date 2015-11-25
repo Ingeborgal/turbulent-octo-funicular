@@ -68,8 +68,6 @@ public class UtilityTest {
 		String bitwiseString2 = "000000000000000000000000";
 		assertEquals("000000000000000000000000", utility.bitwiseAndOperation(bitwiseString1, bitwiseString2) );
 	}
-
-	
 	@Test
 	public void bitwiseOrOperation_ifTheFirstNumberInBothStringsIs1_assertEquals(){
 		String bitwiseString1 = "111111111111111111111111";
@@ -88,5 +86,4 @@ public class UtilityTest {
 		String bitwiseString2 = "000000000000000000000000";
 		assertEquals("111111111111111111111111", utility.bitwiseOrOperation(bitwiseString1, bitwiseString2));
 	}
-
 }

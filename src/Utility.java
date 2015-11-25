@@ -1,5 +1,3 @@
-import javax.naming.spi.DirStateFactory.Result;
-
 
 public class Utility {
 	
@@ -80,7 +78,6 @@ public class Utility {
 				strBuild.append('1');
 			else
 				strBuild.append('0');
-		
 			
 		return strBuild.reverse().toString();
 	}
