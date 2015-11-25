@@ -19,7 +19,7 @@ public class Utility {
 				result += Math.pow( 2, ( numbers.length - i - 1 ) );
 		}
 		return result;
-		 
+		
 	}
 
 	private void controlLegalDigitForBit(String binary) {
