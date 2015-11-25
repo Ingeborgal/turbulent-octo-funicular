@@ -1,9 +1,6 @@
 import static org.junit.Assert.*;
 
-import javax.rmi.CORBA.Util;
-
 import org.junit.Test;
-
 
 public class UtilityTest {
 

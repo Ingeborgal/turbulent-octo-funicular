@@ -100,5 +100,4 @@ class SavedData{
 	public int getIntResult(){
 		return intResult;
 	}
-
 }
